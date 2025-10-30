@@ -5,31 +5,20 @@ import matplotlib.pyplot as plt
 import nltk
 import sys
 
+# --- NLTK Data Download ---
+# This will run every time the app starts, but NLTK is smart
+# and will only download if the data is missing.
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+# --- End of NLTK Download ---
 
-_nltk_data_downloaded = False
-try:
-    # Check for 'punkt' (for sentence tokenization)
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
-    _nltk_data_downloaded = True
-
-try:
-    # Check for 'averaged_perceptron_tagger' (TextBlob's default tagger)
-    nltk.data.find('taggers/averaged_perceptron_tagger')
-except LookupError:
-    nltk.download('averaged_perceptron_tagger')
-    _nltk_data_downloaded = True
-
-# If we downloaded anything, show a message and rerun
-if _nltk_data_downloaded:
-    st.info("Downloading necessary NLTK data... (This runs only once per session)")
-    st.rerun() # Rerun the script after download(s)
 # --- Page Configuration ---
 st.set_page_config(page_title="Sentiment Analysis", layout="wide")
 
 # --- Main Application ---
 st.title("Sentiment Analysis Tool 📊")
+# ... (the rest of your code) ...
 st.write("Enter text below to analyze its sentiment. The app will classify each sentence as Positive, Negative, or Neutral.")
 
 # --- Input Area ---
