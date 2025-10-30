@@ -1,0 +1,5 @@
+streamlit
+textblob
+matplotlib
+pandas
+nltk
