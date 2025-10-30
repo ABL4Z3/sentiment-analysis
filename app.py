@@ -5,15 +5,26 @@ import matplotlib.pyplot as plt
 import nltk
 import sys
 
-# --- NLTK Tokenizer Download ---
-# We do this once at the start
+
+_nltk_data_downloaded = False
 try:
+    # Check for 'punkt' (for sentence tokenization)
     nltk.data.find('tokenizers/punkt')
 except LookupError:
-    st.info("Downloading NLTK 'punkt' tokenizer... (This runs only once)")
     nltk.download('punkt')
-    st.rerun() # Rerun the script after download
+    _nltk_data_downloaded = True
 
+try:
+    # Check for 'averaged_perceptron_tagger' (TextBlob's default tagger)
+    nltk.data.find('taggers/averaged_perceptron_tagger')
+except LookupError:
+    nltk.download('averaged_perceptron_tagger')
+    _nltk_data_downloaded = True
+
+# If we downloaded anything, show a message and rerun
+if _nltk_data_downloaded:
+    st.info("Downloading necessary NLTK data... (This runs only once per session)")
+    st.rerun() # Rerun the script after download(s)
 # --- Page Configuration ---
 st.set_page_config(page_title="Sentiment Analysis", layout="wide")
 
