@@ -12,7 +12,7 @@ try:
 except LookupError:
     st.info("Downloading NLTK 'punkt' tokenizer... (This runs only once)")
     nltk.download('punkt')
-    st.experimental_rerun() # Rerun the script after download
+    st.rerun() # Rerun the script after download
 
 # --- Page Configuration ---
 st.set_page_config(page_title="Sentiment Analysis", layout="wide")
