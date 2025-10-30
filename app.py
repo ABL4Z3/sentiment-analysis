@@ -6,19 +6,29 @@ import nltk
 import sys
 
 # --- NLTK Data Download ---
-# This will run every time the app starts, but NLTK is smart
-# and will only download if the data is missing.
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('wordnet')
-# --- End of NLTK Download ---
+# Use @st.cache_resource to run this function only once.
+@st.cache_resource
+def download_nltk_data():
+    """Downloads the NLTK data required for TextBlob."""
+    st.info("Downloading NLTK data... (This runs only once on startup)")
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt')
+    try:
+        nltk.data.find('taggers/averaged_perceptron_tagger')
+    except LookupError:
+        nltk.download('averaged_perceptron_tagger')
+    st.success("NLTK data downloaded successfully!")
+
+# Call the function to ensure data is downloaded
+download_nltk_data()
 
 # --- Page Configuration ---
 st.set_page_config(page_title="Sentiment Analysis", layout="wide")
 
 # --- Main Application ---
 st.title("Sentiment Analysis Tool 📊")
-# ... (the rest of your code) ...
 st.write("Enter text below to analyze its sentiment. The app will classify each sentence as Positive, Negative, or Neutral.")
 
 # --- Input Area ---
